@@ -1,20 +1,25 @@
 import Head from 'next/head'
 import { useWeb3 } from '@3rdweb/hooks'
 import styled from 'styled-components'
+import Dashboard from './Dashboard'
 
 export default function Home() {
-  const { adress, connectWallet } = useWeb3()
+  const { address, connectWallet } = useWeb3()
 
   return (
     <Wrapper>
-      <WalletConnect>
-        <Button onClick={() => connectWallet('injected')}>
-          Connect Wallet
-        </Button>
-        <Details>
-          You need Chrome to be <br /> able to run this app.
-        </Details>
-      </WalletConnect>
+      {address ? (
+        <Dashboard address={address} />
+      ) : (
+        <WalletConnect>
+          <Button onClick={() => connectWallet('injected')}>
+            Connect Wallet
+          </Button>
+          <Details>
+            You need Chrome to be <br /> able to run this app.
+          </Details>
+        </WalletConnect>
+      )}
     </Wrapper>
   )
 }
